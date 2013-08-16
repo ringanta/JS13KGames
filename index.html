@@ -1,0 +1,78 @@
+<html>
+<head>
+	<title>Four Coloring Game</title>
+	<style>
+		.color{border:1px solid #000000; width: 73; height: 75; float: left; margin: 0}
+		.clear{ clear: both }
+		.sep{ margin-top: 10px; margin-bottom: 10px}
+		.yellow{ background: #ffff00 }
+		.red{ background: #ff0000 }
+		.green{ background: #00ff00 }
+		.blue{ background: #0000ff }
+	</style>
+</head>
+<body onload="startup()">
+	<div>
+		<canvas id="myfcg" width="300" height="300" style="border:1px solid #000000;"></canvas>
+	</div>
+	<div>
+		<div id="red" class="color red" onclick="setColor(0)"></div>
+		<div id="green" class="color green" onclick="setColor(1)"></div>
+		<div id="blue" class="color blue" onclick="setColor(2)"></div>
+		<div id="yellow" class="color yellow" onclick="setColor(3)"></div>
+	</div>
+	<div class="clear sep">
+		<button id="validate">Validate</button>
+	</div>
+	<script>
+		var cdom=getElmt('myfcg');
+		var ctx=cdom.getContext('2d');
+		var DEFAULT_COLOR = ["#FF0000", "#00FF00", "#0000FF", "#FFFF00"]
+		var currentColor;
+		
+		function getPosition(event){
+			var x = event.x;
+			var y = event.y;
+			x -= cdom.offsetLeft;
+			y -= cdom.offsetTop;
+			console.log(x,y);
+			return [x,y];
+		}
+		function canvasClicked(event){
+			
+		}
+		function rect(x1,y1, x2,y2){
+			this.x1 = x1;
+			this.y1 = y1;
+			this.x2 = x2;
+			this.y2 = y2;
+		}
+		function setColor(index){ currentColor = index; }
+		function getElmt(id){ return document.getElementById(id); }
+		parts = [
+			rect(0,0, 150,150),
+			rect(150,0, 300,150),
+			rect(0,150, 150,300),
+			rect(150,150, 300,300)
+		]
+		function line(x1,y1, x2,y2){
+			ctx.moveTo(x1,y1);
+			ctx.lineTo(x2,y2);
+			ctx.strokeStyle = 'black';
+			ctx.stroke();
+		}
+		function separate(){
+			line(0,150, 300,150)
+			line(150,0, 150, 300)
+		}
+		function startup(){
+			separate();
+			var btn = getElmt('validate');
+			btn.addEventListener("click", function(){
+				alert('validate');
+			});
+			cdom.addEventListener("click", getPosition, false);
+		}
+	</script>
+</body>
+</html>
