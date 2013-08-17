@@ -40,6 +40,20 @@ FCG.prototype.start = function (){
 	var level = LEVEL[this.currentLevel];
 	this.drawLines(level.lines);
 }
+FCG.prototype.next = function(){
+	var max = LEVEL.length - 1;
+	
+	if (max == this.currentLevel){
+		this.currentLevel = 0;
+		
+	} else if (max > this.currentLevel){
+		this.currentLevel++;
+		this.start();
+	}
+}
+FCG.prototype.win = function(){
+	alert('You are the winner');
+}
 FCG.prototype.calculatePosition = function(event){
 	var x = event.x;
 	var y = event.y;
