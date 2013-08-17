@@ -77,7 +77,8 @@
 					alert('validate');
 				});
 				fcg.cdom.addEventListener("click", function (event){
-					fcg.calculatePosition(event);
+					var clickPos = fcg.calculatePosition(event);
+					console.log('click in area', fcg.getPartByPoint(clickPos));
 				}, false);
 			}
 		}

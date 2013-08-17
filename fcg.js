@@ -8,10 +8,10 @@ var LEVEL = [
 			new Rect(WIDTH/2,0, WIDTH/2,HEIGHT)
 		],
 		parts: [
-			new Rect(0,0, WIDTH/2,150),
-			new Rect(150,0, 300,150),
-			new Rect(0,150, 150,300),
-			new Rect(150,150, 300,300)
+			new Rect(0,0, WIDTH/2,HEIGHT/2),
+			new Rect(WIDTH/2,0, WIDTH,HEIGHT/2),
+			new Rect(0,HEIGHT/2, WIDTH/2,HEIGHT),
+			new Rect(WIDTH/2,HEIGHT/2, WIDTH,HEIGHT)
 		]
 	}
 ]
@@ -47,9 +47,24 @@ FCG.prototype.calculatePosition = function(event){
 	y -= this.cdom.offsetTop;
 	return [x,y];
 }
+FCG.prototype.getPartByPoint = function(position){
+	var result = -1;
+	var parts = LEVEL[this.currentLevel].parts
+	
+	for (var i=0; i<parts.length; i++){
+		if (parts[i].isInside(position[0],position[1])){
+			result = i;
+			break;
+		}
+	}
+	return result;
+}
 function Rect(x1,y1, x2,y2){
 	this.x1 = x1;
 	this.y1 = y1;
 	this.x2 = x2;
 	this.y2 = y2;
+}
+Rect.prototype.isInside = function(x, y){
+	return x >= this.x1 && x <= this.x2 && y >= this.y1 && y <= this.y2;
 }
