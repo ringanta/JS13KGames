@@ -82,6 +82,11 @@
 				btn.addEventListener("click", function(){
 					valid = fcg.validate();
 					console.log('valid', valid);
+					if (valid){
+						fcg.next();
+					} else {
+						alert("Invalid fill.\nAll parts must be filled with no default color.\nNeighbouring parts must be filled with different color.");
+					}
 				});
 				red.addEventListener('click', function(){
 					fcg.currentColor = 1;

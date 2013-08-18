@@ -31,7 +31,8 @@ function FCG(){
 FCG.prototype.line = function(x1,y1, x2,y2){
 	this.ctx.moveTo(x1,y1);
 	this.ctx.lineTo(x2,y2);
-	this.ctx.strokeStyle = 'black';
+	this.ctx.lineWidth = 1;
+	this.ctx.strokeStyle = '#000000';
 	this.ctx.stroke();
 }
 FCG.prototype.drawLines = function(lines){
@@ -66,7 +67,7 @@ FCG.prototype.next = function(){
 	
 	if (max == this.currentLevel){
 		this.currentLevel = 0;
-		
+		this.win();
 	} else if (max > this.currentLevel){
 		this.currentLevel++;
 		this.start();
@@ -79,14 +80,22 @@ FCG.prototype.validate = function(){
 	var valid = true;
 	var neighbours = LEVEL[this.currentLevel].neighbours
 	
-	for (var i=0; i<neighbours.length; i++){
-		for (var j=0; j<neighbours[i].length; j++){
-			if ((neighbours[i][j] == 1) && (this.partsColor[i] == this.partsColor[j])){
-				valid = false;
-				break;
-			}
+	for (var i=0; i<this.partsColor.length; i++){
+		if (this.partsColor[i] == 0){
+			valid = false;
+			break;
 		}
-		if (!valid) break;
+	}
+	if (valid){
+		for (var i=0; i<neighbours.length; i++){
+			for (var j=0; j<neighbours[i].length; j++){
+				if ((neighbours[i][j] == 1) && (this.partsColor[i] == this.partsColor[j])){
+					valid = false;
+					break;
+				}
+			}
+			if (!valid) break;
+		}
 	}
 	return valid;
 }
