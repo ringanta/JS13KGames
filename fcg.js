@@ -4,14 +4,14 @@ var DEFAULT_COLOR = ["#FFFFFF", "#FF0000", "#00FF00", "#0000FF", "#FFFF00"];
 var LEVEL = [
 	{
 		lines: [
-			new Rect(0,HEIGHT/2, WIDTH,HEIGHT/2),
-			new Rect(WIDTH/2,0, WIDTH/2,HEIGHT)
+			[0,HEIGHT/2, WIDTH,HEIGHT/2],
+			[WIDTH/2,0, WIDTH/2,HEIGHT]
 		],
 		parts: [
-			new Rect(0,0, WIDTH/2,HEIGHT/2),
-			new Rect(WIDTH/2,0, WIDTH,HEIGHT/2),
-			new Rect(0,HEIGHT/2, WIDTH/2,HEIGHT),
-			new Rect(WIDTH/2,HEIGHT/2, WIDTH,HEIGHT)
+			[0,0, WIDTH/2,HEIGHT/2],
+			[WIDTH/2,0, WIDTH,HEIGHT/2],
+			[0,HEIGHT/2, WIDTH/2,HEIGHT],
+			[WIDTH/2,HEIGHT/2, WIDTH,HEIGHT]
 		],
 		neighbours: [
 			[0, 1, 1, 1],
@@ -39,14 +39,14 @@ FCG.prototype.drawLines = function(lines){
 	var line;
 	for (var i=0; i<lines.length; i++){
 		line = lines[i];
-		this.line(line.x1,line.y1, line.x2,line.y2);
+		this.line(line[0],line[1], line[2],line[3]);
 	}
 }
 FCG.prototype.setColor = function (index){ this.currentColor = index; }
 FCG.prototype.fillPart = function (index){
 	var parts = LEVEL[this.currentLevel].parts;
 	this.ctx.fillStyle = DEFAULT_COLOR[this.currentColor];
-	this.ctx.fillRect(parts[index].x1+1, parts[index].y1+1, parts[index].x2-1,parts[index].y2-1);
+	this.ctx.fillRect(parts[index][0]+1, parts[index][1]+1, parts[index][2]-1,parts[index][3]-1);
 	this.partsColor[index] = this.currentColor;
 }
 FCG.prototype.setLevelText = function (){ var lvl = getElmt('level'); lvl.innerText = this.currentLevel+1; }
@@ -120,10 +120,12 @@ FCG.prototype.calculatePosition = function(event){
 }
 FCG.prototype.getPartByPoint = function(position){
 	var result = -1;
-	var parts = LEVEL[this.currentLevel].parts
+	var parts = LEVEL[this.currentLevel].parts;
+	var part;
 	
 	for (var i=0; i<parts.length; i++){
-		if (parts[i].isInside(position[0],position[1])){
+		part = new Rect(parts[i][0],parts[i][1], parts[i][2],parts[i][3]);
+		if (part.isInside(position[0],position[1])){
 			result = i;
 			break;
 		}
