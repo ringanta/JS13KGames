@@ -61,6 +61,7 @@ FCG.prototype.initPartsColor = function(){
 FCG.prototype.start = function (){
 	var level = LEVEL[this.currentLevel];
 	
+	this.currentColor = 0;
 	this.setLevelText();
 	this.initPartsColor();
 	this.drawLines(level.lines);
@@ -73,7 +74,7 @@ FCG.prototype.next = function(){
 	
 	if (max == this.currentLevel){
 		this.currentLevel = 0;
-		this.currentColor = 0;
+	
 		this.win();
 	} else if (max > this.currentLevel){
 		this.currentLevel++;

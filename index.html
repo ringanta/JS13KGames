@@ -15,6 +15,7 @@
 		.line { border: 1px solid #bbb }
 		.left { float: left }
 		.color{width: 200px; height: 100px; margin: 0 0 5px 10px}
+		.container-validate{ margin-top: 0; margin-bottom: 10px;}
 		.clear{ clear: both }
 		.sep{ margin-top: 0; margin-bottom: 10px}
 		.yellow{ background: #ffff00 }
@@ -22,7 +23,7 @@
 		.green{ background: #00ff00 }
 		.blue{ background: #0000ff }
 		.right-sep { margin: 0 0 0 10px; }
-		.right-comp { width: 200px; height: 100px; }
+		.right-comp { width: 200px; height: 50px; margin-bottom: 0; margin-top: 0}
 		button::-moz-focus-inner { border: 0; }
 		button.minimal {
 			background: #e3e3e3;
@@ -31,7 +32,7 @@
 			-webkit-box-shadow: inset 0 0 1px 1px #f6f6f6;
 			box-shadow: inset 0 0 1px 1px #f6f6f6;
 			color: #333;
-			font: bold 40px/1 "helvetica neue", helvetica, arial, sans-serif;
+			font: bold 30px/1 "helvetica neue", helvetica, arial, sans-serif;
 			padding: 8px 0 9px;
 			text-align: center;
 			text-shadow: 0 1px 0 #fff;
@@ -48,7 +49,7 @@
 			box-shadow: inset 0 0 1px 1px #e3e3e3;
 			color: #000; }
 		#game-screen{
-			width: 1000px;
+			width: 1200px;
 			height: auto;
 			margin-left: auto;
 			margin-right: auto;
@@ -72,16 +73,21 @@
 			<canvas id="myfcg" width="600px" height="550px" class="line"></canvas>
 		</div>
 		<div class="left">
-			<div class="sep">
+			<div class="sep left">
 				<div id="red" class="rounded color red"></div>
 				<div id="green" class="rounded color green"></div>
 				<div id="blue" class="rounded color blue"></div>
 				<div id="yellow" class="rounded color yellow"></div>
 			</div>
-			<div class="clear">
+			<div class="clear"></div>
+			<div class="container-validate">
 				<button id="validate" class="right-comp minimal right-sep">Validate</button>
 			</div>
+			<div>
+				<button id="reset" class="right-comp minimal right-sep">Reset</button>
+			</div>
 		</div>
+		
 	</div>
 	<script>
 		var fcg;
@@ -90,6 +96,7 @@
 				fcg = new FCG();
 				fcg.start();
 				var btn = getElmt('validate');
+				var reset = getElmt('reset');
 				var red = getElmt('red');
 				var green = getElmt('green');
 				var blue = getElmt('blue');
@@ -114,6 +121,12 @@
 				});
 				yellow.addEventListener('click', function(){
 					fcg.currentColor = 4;
+				});
+				reset.addEventListener('click', function(){
+					var input = confirm("Are you sure want to reset?");
+					if (input == true){
+						fcg.start();
+					}
 				});
 				fcg.cdom.addEventListener("mousedown", function (event){
 					var clickPos = fcg.calculatePosition(event);
