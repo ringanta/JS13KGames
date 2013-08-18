@@ -84,7 +84,7 @@
 				<button id="validate" class="right-comp minimal right-sep">Validate</button>
 			</div>
 			<div>
-				<button id="reset" class="right-comp minimal right-sep">Reset</button>
+				<button id="reset" class="right-comp minimal right-sep">Clear Parts</button>
 			</div>
 		</div>
 		
@@ -123,7 +123,7 @@
 					fcg.currentColor = 4;
 				});
 				reset.addEventListener('click', function(){
-					var input = confirm("Are you sure want to reset?");
+					var input = confirm("Are you sure want to clear all parts at this level?");
 					if (input == true){
 						fcg.start();
 					}
