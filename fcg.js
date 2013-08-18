@@ -50,34 +50,36 @@ var LEVEL = [
 		lines: [
 			[0, HEIGHT/2, WIDTH, HEIGHT/2],
 			[WIDTH/2, 0, WIDTH/2, HEIGHT],
-			[0, HEIGHT/4, WIDTH, HEIGHT/4],
+			[0, HEIGHT/4, WIDTH/2, HEIGHT/4],
 			[WIDTH/4, 0, WIDTH/4, HEIGHT/2],
-			[3*WIDTH/4, 0, 3*WIDTH/4, HEIGHT/2]
+			[WIDTH/2, 3*HEIGHT/4, WIDTH, 3*HEIGHT/4],
+			[3*WIDTH/4, HEIGHT/2, 3*WIDTH/4, HEIGHT],
 		],
 		parts: [
 			[0, 0, WIDTH/4, HEIGHT/4],
 			[WIDTH/4, 0, WIDTH/4, HEIGHT/4],
 			[0, HEIGHT/4, WIDTH/4, HEIGHT/4],
 			[WIDTH/4, HEIGHT/4, WIDTH/4, HEIGHT/4],
-			[WIDTH/2, 0, WIDTH/4, HEIGHT/4],
-			[3*WIDTH/4, 0, WIDTH/4, HEIGHT/4],
-			[WIDTH/2, HEIGHT/4, WIDTH/4, HEIGHT/4],
-			[3*WIDTH/4, HEIGHT/4, WIDTH/4, HEIGHT/4],
 			
+			[WIDTH/2, 0, WIDTH/2, HEIGHT/2],
 			[0, HEIGHT/2, WIDTH/2, HEIGHT/2],
-			[WIDTH/2, HEIGHT/2, WIDTH/2, HEIGHT/2]
+			
+			[WIDTH/2, HEIGHT/2, WIDTH/4, HEIGHT/4],
+			[3*WIDTH/4, HEIGHT/2, WIDTH/4, HEIGHT/4],
+			[WIDTH/2, 3*HEIGHT/4, WIDTH/4, HEIGHT/4],
+			[3*WIDTH/4, 3*HEIGHT/4, WIDTH/4, HEIGHT/4],
 		],
 		neighbours: [
 			[0, 1, 1, 1, 0, 0, 0, 0, 0, 0],
-			[1, 0, 1, 1, 1, 0, 1, 0, 0, 0],
-			[1, 1, 0, 1, 0, 0, 0, 0, 1, 0],
-			[1, 1, 1, 0, 1, 0, 1, 0, 1, 1],
+			[1, 0, 1, 1, 1, 0, 0, 0, 0, 0],
+			[1, 1, 0, 1, 0, 1, 0, 0, 0, 0],
+			[1, 1, 1, 0, 1, 1, 1, 0, 0, 0],
 			[0, 1, 0, 1, 0, 1, 1, 1, 0, 0],
-			[0, 0, 0, 0, 1, 0, 1, 1, 0, 0],
-			[0, 1, 0, 1, 1, 1, 0, 1, 1, 1],
-			[0, 0, 0, 0, 1, 1, 1, 0, 0, 1],
-			[0, 0, 1, 1, 0, 0, 1, 0, 0, 1],
-			[0, 0, 0, 1, 0, 0, 1, 1, 1, 0],
+			[0, 0, 1, 1, 1, 0, 1, 0, 1, 0],
+			[0, 0, 0, 1, 1, 1, 0, 1, 1, 1],
+			[0, 0, 0, 0, 1, 0, 1, 0, 1, 1],
+			[0, 0, 0, 0, 0, 1, 1, 1, 0, 1],
+			[0, 0, 0, 0, 0, 0, 1, 1, 1, 0],
 		]
 	}
 ]
@@ -99,6 +101,7 @@ FCG.prototype.drawLines = function(lines){
 	for (var i=0; i<lines.length; i++){
 		line = lines[i];
 		this.line(line[0],line[1], line[2],line[3]);
+		console.log('line', i + ', ' + line);
 	}
 }
 FCG.prototype.setColor = function (index){ this.currentColor = index; }
