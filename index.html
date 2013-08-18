@@ -93,48 +93,7 @@
 		var fcg;
 		document.onreadystatechange = function(){
 			if (document.readyState == "complete"){
-				fcg = new FCG();
-				fcg.start();
-				var btn = getElmt('validate');
-				var reset = getElmt('reset');
-				var red = getElmt('red');
-				var green = getElmt('green');
-				var blue = getElmt('blue');
-				var yellow = getElmt('yellow');
-				btn.addEventListener("click", function(){
-					valid = fcg.validate();
-					console.log('valid', valid);
-					if (valid){
-						fcg.next();
-					} else {
-						alert("Invalid fill.\nAll parts must be filled with no default color.\nNeighbouring parts must be filled with different color.");
-					}
-				});
-				red.addEventListener('click', function(){
-					fcg.currentColor = 1;
-				});
-				green.addEventListener('click', function(){
-					fcg.currentColor = 2;
-				});
-				blue.addEventListener('click', function(){
-					fcg.currentColor = 3;
-				});
-				yellow.addEventListener('click', function(){
-					fcg.currentColor = 4;
-				});
-				reset.addEventListener('click', function(){
-					var input = confirm("Are you sure want to clear all parts at this level?");
-					if (input == true){
-						fcg.start();
-					}
-				});
-				fcg.cdom.addEventListener("mousedown", function (event){
-					var clickPos = fcg.calculatePosition(event);
-					console.log('Calibrated position', clickPos[0] + ',' + clickPos[1]);
-					var partNumber = fcg.getPartByPoint(clickPos);
-					console.log('click in area', partNumber);
-					fcg.fillPart(partNumber);
-				}, false);
+				startGame();
 			}
 		}
 	</script>
