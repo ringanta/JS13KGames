@@ -7,6 +7,7 @@
 			-moz-border-radius: 15px;
 			border-radius: 15px
 		}
+		.line { border: 1px solid #000000 }
 		.left { float: left }
 		.color{width: 200px; height: 100px; margin: 0 0 5px 10px}
 		.clear{ clear: both }
@@ -43,6 +44,7 @@
 			color: #000; }
 		#game-screen{
 			width: 1000px;
+			height: 1000px;
 			margin-left: auto;
 			margin-right: auto;
 		}
@@ -52,7 +54,7 @@
 <body>
 	<div id="game-screen">
 		<div class="left">
-			<canvas id="myfcg" width="600" height="600" class="rounded"></canvas>
+			<canvas id="myfcg" width="600px" height="600px" class="line"></canvas>
 		</div>
 		<div class="left">
 			<div class="sep">
@@ -73,12 +75,31 @@
 				fcg = new FCG();
 				fcg.start();
 				var btn = getElmt('validate');
+				var red = getElmt('red');
+				var green = getElmt('green');
+				var blue = getElmt('blue');
+				var yellow = getElmt('yellow');
 				btn.addEventListener("click", function(){
 					alert('validate');
 				});
-				fcg.cdom.addEventListener("click", function (event){
+				red.addEventListener('click', function(){
+					fcg.currentColor = 1;
+				});
+				green.addEventListener('click', function(){
+					fcg.currentColor = 2;
+				});
+				blue.addEventListener('click', function(){
+					fcg.currentColor = 3;
+				});
+				yellow.addEventListener('click', function(){
+					fcg.currentColor = 4;
+				});
+				fcg.cdom.addEventListener("mousedown", function (event){
 					var clickPos = fcg.calculatePosition(event);
-					console.log('click in area', fcg.getPartByPoint(clickPos));
+					console.log('Calibrated position', clickPos[0] + ',' + clickPos[1]);
+					var partNumber = fcg.getPartByPoint(clickPos);
+					console.log('click in area', partNumber);
+					fcg.fillPart(partNumber);
 				}, false);
 			}
 		}

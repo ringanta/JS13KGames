@@ -1,6 +1,6 @@
 var HEIGHT = 600;
 var WIDTH = 600;
-var DEFAULT_COLOR = ["#FF0000", "#00FF00", "#0000FF", "#FFFF00"];
+var DEFAULT_COLOR = ["#FFFFFF", "#FF0000", "#00FF00", "#0000FF", "#FFFF00"];
 var LEVEL = [
 	{
 		lines: [
@@ -19,7 +19,7 @@ function getElmt(id){ return document.getElementById(id); }
 function FCG(){
 	this.cdom = getElmt('myfcg');
 	this.ctx = this.cdom.getContext('2d');
-	this.currentColor;
+	this.currentColor = 0;
 	this.currentLevel = 0;
 }
 FCG.prototype.line = function(x1,y1, x2,y2){
@@ -36,6 +36,11 @@ FCG.prototype.drawLines = function(lines){
 	}
 }
 FCG.prototype.setColor = function (index){ this.currentColor = index; }
+FCG.prototype.fillPart = function (index){
+	var parts = LEVEL[this.currentLevel].parts;
+	this.ctx.fillStyle = DEFAULT_COLOR[this.currentColor];
+	this.ctx.fillRect(parts[index].x1+1, parts[index].y1+1, parts[index].x2-1,parts[index].y2-1);
+}
 FCG.prototype.start = function (){
 	var level = LEVEL[this.currentLevel];
 	this.drawLines(level.lines);
@@ -57,8 +62,11 @@ FCG.prototype.win = function(){
 FCG.prototype.calculatePosition = function(event){
 	var x = event.x;
 	var y = event.y;
-	x -= this.cdom.offsetLeft;
-	y -= this.cdom.offsetTop;
+	console.log('original click', x + ',' + y);
+	console.log('offsetLeft', this.cdom.offsetLeft);
+	console.log('offsetTop', this.cdom.offsetTop);
+	x = x - this.cdom.offsetLeft + window.scrollX;
+	y = y - this.cdom.offsetTop + window.scrollY;
 	return [x,y];
 }
 FCG.prototype.getPartByPoint = function(position){
