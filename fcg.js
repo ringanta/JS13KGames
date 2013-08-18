@@ -1,4 +1,4 @@
-var HEIGHT = 600;
+var HEIGHT = 550;
 var WIDTH = 600;
 var DEFAULT_COLOR = ["#FFFFFF", "#FF0000", "#00FF00", "#0000FF", "#FFFF00"];
 var LEVEL = [
@@ -49,6 +49,7 @@ FCG.prototype.fillPart = function (index){
 	this.ctx.fillRect(parts[index].x1+1, parts[index].y1+1, parts[index].x2-1,parts[index].y2-1);
 	this.partsColor[index] = this.currentColor;
 }
+FCG.prototype.setLevelText = function (){ var lvl = getElmt('level'); lvl.innerText = this.currentLevel+1; }
 FCG.prototype.initPartsColor = function(){
 	var parts = LEVEL[this.currentLevel].parts
 	this.partsColor = new Array();
@@ -59,14 +60,20 @@ FCG.prototype.initPartsColor = function(){
 }
 FCG.prototype.start = function (){
 	var level = LEVEL[this.currentLevel];
+	
+	this.setLevelText();
 	this.initPartsColor();
 	this.drawLines(level.lines);
+	for (var i=0; i<this.partsColor.length; i++){
+		this.fillPart(i);
+	}
 }
 FCG.prototype.next = function(){
 	var max = LEVEL.length - 1;
 	
 	if (max == this.currentLevel){
 		this.currentLevel = 0;
+		this.currentColor = 0;
 		this.win();
 	} else if (max > this.currentLevel){
 		this.currentLevel++;
@@ -75,6 +82,7 @@ FCG.prototype.next = function(){
 }
 FCG.prototype.win = function(){
 	alert('You are the winner');
+	this.start();
 }
 FCG.prototype.validate = function(){
 	var valid = true;

@@ -1,12 +1,17 @@
 <html>
 <head>
-	<title>Four Coloring Game</title>
+	<title>Fill in 4</title>
 	<style>
 		.rounded {
 			border: 1px solid #000000;
 			-moz-border-radius: 15px;
 			border-radius: 15px
 		}
+		.lvl-announcement{
+		 font: bold 25px/1 "helvetica neue", helvetica, arial, sans-serif;
+		 text-shadow: 0 1px 0 #fff;
+		}
+
 		.line { border: 1px solid #000000 }
 		.left { float: left }
 		.color{width: 200px; height: 100px; margin: 0 0 5px 10px}
@@ -44,17 +49,27 @@
 			color: #000; }
 		#game-screen{
 			width: 1000px;
-			height: 1000px;
+			height: auto;
 			margin-left: auto;
 			margin-right: auto;
+		}
+		#announcement{
+			width: 49em;
+			height: 2em;
+			background: #e3e3e3;
+			padding: 1em;
+			text-align: center;
 		}
 	</style>
 	<script type="text/javascript" src="fcg.js"></script>
 </head>
 <body>
 	<div id="game-screen">
+		<div id="announcement" class="rounded sep">
+			<span class="lvl-announcement">Level: #<span id="level"></span></span> 
+		</div>
 		<div class="left">
-			<canvas id="myfcg" width="600px" height="600px" class="line"></canvas>
+			<canvas id="myfcg" width="600px" height="550px" class="line"></canvas>
 		</div>
 		<div class="left">
 			<div class="sep">
