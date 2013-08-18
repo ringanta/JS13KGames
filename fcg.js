@@ -1,6 +1,6 @@
 var HEIGHT = 550;
 var WIDTH = 600;
-var DEFAULT_COLOR = ["#000000", "#FF0000", "#00FF00", "#0000FF", "#FFFF00"];
+var DEFAULT_COLOR = ["#FFFFFF", "#FF0000", "#00FF00", "#0000FF", "#FFFF00"];
 var LEVEL = [
 	{
 		lines: [
@@ -19,12 +19,13 @@ var LEVEL = [
 			[1, 1, 0, 1],
 			[1, 1, 1, 0]
 		]
-	},{
+	},
+	{
 		lines: [
-			[0,HEIGHT/2, WIDTH,HEIGHT/2],
-			[WIDTH/2,0, WIDTH/2,HEIGHT],
-			[0,HEIGHT/4, WIDTH/2,HEIGHT/4],
-			[WIDTH/4,0, WIDTH/4,HEIGHT/2],
+			[0, HEIGHT/2, WIDTH, HEIGHT/2],
+			[WIDTH/2, 0, WIDTH/2, HEIGHT],
+			[0, HEIGHT/4, WIDTH/2, HEIGHT/4],
+			[WIDTH/4, 0, WIDTH/4, HEIGHT/2],
 		],
 		parts: [
 			[0, 0, WIDTH/4, HEIGHT/4],
@@ -44,13 +45,44 @@ var LEVEL = [
 			[0, 0, 1, 1, 1, 0, 1],
 			[0, 0, 0, 1, 1, 1, 0],
 		]
+	},
+	{
+		lines: [
+			[0, HEIGHT/2, WIDTH, HEIGHT/2],
+			[WIDTH/2, 0, WIDTH/2, HEIGHT],
+			[0, HEIGHT/4, WIDTH, HEIGHT/4],
+			[WIDTH/4, 0, WIDTH/4, HEIGHT/2],
+			[3*WIDTH/4, 0, 3*WIDTH/4, HEIGHT/2]
+		],
+		parts: [
+			[0, 0, WIDTH/4, HEIGHT/4],
+			[WIDTH/4, 0, WIDTH/4, HEIGHT/4],
+			[0, HEIGHT/4, WIDTH/4, HEIGHT/4],
+			[WIDTH/4, HEIGHT/4, WIDTH/4, HEIGHT/4],
+			[WIDTH/2, 0, WIDTH/4, HEIGHT/4],
+			[3*WIDTH/4, 0, WIDTH/4, HEIGHT/4],
+			[WIDTH/2, HEIGHT/4, WIDTH/4, HEIGHT/4],
+			[3*WIDTH/4, HEIGHT/4, WIDTH/4, HEIGHT/4],
+			
+			[0, HEIGHT/2, WIDTH/2, HEIGHT/2],
+			[WIDTH/2, HEIGHT/2, WIDTH/2, HEIGHT/2]
+		],
+		neighbours: [
+			[0, 1, 1, 1, 0, 0, 0],
+			[1, 0, 1, 1, 5, 0, 0],
+			[1, 1, 0, 1, 0, 1, 0],
+			[1, 1, 1, 0, 1, 1, 1],
+			[0, 1, 0, 1, 0, 1, 1],
+			[0, 0, 1, 1, 1, 0, 1],
+			[0, 0, 0, 1, 1, 1, 0],
+		]
 	}
 ]
 function getElmt(id){ return document.getElementById(id); }
 function FCG(){
 	this.cdom = getElmt('myfcg');
 	this.ctx = this.cdom.getContext('2d');
-	this.currentLevel = 1;
+	this.currentLevel = 2;
 }
 FCG.prototype.line = function(x1,y1, x2,y2){
 	this.ctx.moveTo(x1,y1);
