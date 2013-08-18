@@ -32,7 +32,7 @@ FCG.prototype.line = function(x1,y1, x2,y2){
 	this.ctx.moveTo(x1,y1);
 	this.ctx.lineTo(x2,y2);
 	this.ctx.lineWidth = 1;
-	this.ctx.strokeStyle = '#000000';
+	this.ctx.strokeStyle = '#bbb';
 	this.ctx.stroke();
 }
 FCG.prototype.drawLines = function(lines){
