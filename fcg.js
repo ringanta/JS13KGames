@@ -12,6 +12,12 @@ var LEVEL = [
 			new Rect(WIDTH/2,0, WIDTH,HEIGHT/2),
 			new Rect(0,HEIGHT/2, WIDTH/2,HEIGHT),
 			new Rect(WIDTH/2,HEIGHT/2, WIDTH,HEIGHT)
+		],
+		neighbours: [
+			[0, 1, 1, 1],
+			[1, 0, 1, 1],
+			[1, 1, 0, 1],
+			[1, 1, 1, 0]
 		]
 	}
 ]
@@ -40,9 +46,19 @@ FCG.prototype.fillPart = function (index){
 	var parts = LEVEL[this.currentLevel].parts;
 	this.ctx.fillStyle = DEFAULT_COLOR[this.currentColor];
 	this.ctx.fillRect(parts[index].x1+1, parts[index].y1+1, parts[index].x2-1,parts[index].y2-1);
+	this.partsColor[index] = this.currentColor;
+}
+FCG.prototype.initPartsColor = function(){
+	var parts = LEVEL[this.currentLevel].parts
+	this.partsColor = new Array();
+	
+	for (var i=0; i<parts.length; i++){
+		this.partsColor[i] = 0;
+	}
 }
 FCG.prototype.start = function (){
 	var level = LEVEL[this.currentLevel];
+	this.initPartsColor();
 	this.drawLines(level.lines);
 }
 FCG.prototype.next = function(){
@@ -58,6 +74,21 @@ FCG.prototype.next = function(){
 }
 FCG.prototype.win = function(){
 	alert('You are the winner');
+}
+FCG.prototype.validate = function(){
+	var valid = true;
+	var neighbours = LEVEL[this.currentLevel].neighbours
+	
+	for (var i=0; i<neighbours.length; i++){
+		for (var j=0; j<neighbours[i].length; j++){
+			if ((neighbours[i][j] == 1) && (this.partsColor[i] == this.partsColor[j])){
+				valid = false;
+				break;
+			}
+		}
+		if (!valid) break;
+	}
+	return valid;
 }
 FCG.prototype.calculatePosition = function(event){
 	var x = event.x;

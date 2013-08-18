@@ -80,7 +80,8 @@
 				var blue = getElmt('blue');
 				var yellow = getElmt('yellow');
 				btn.addEventListener("click", function(){
-					alert('validate');
+					valid = fcg.validate();
+					console.log('valid', valid);
 				});
 				red.addEventListener('click', function(){
 					fcg.currentColor = 1;
