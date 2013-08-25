@@ -31,6 +31,10 @@ FCG.prototype.fillPart = function (index){
 	this.ctx.fillRect(parts[index][0]+1, parts[index][1]+1, parts[index][2]-1,parts[index][3]-1);
 	this.partsColor[index] = this.currentColor;
 }
+FCG.prototype.fillBackground = function(){
+	this.ctx.fillStyle = DEFAULT_COLOR[0];
+	this.ctx.fillRect(0, 0, WIDTH, HEIGHT);
+},
 FCG.prototype.setLevelText = function (){ var lvl = getElmt('level'); lvl.innerText = this.currentLevel+1; }
 FCG.prototype.initPartsColor = function(){
 	var parts = LEVEL[this.currentLevel].parts
@@ -44,6 +48,7 @@ FCG.prototype.start = function (){
 	var level = LEVEL[this.currentLevel];
 	
 	this.currentColor = 0;
+	this.fillBackground();
 	this.setLevelText();
 	this.initPartsColor();
 	this.drawLines(level.lines);
