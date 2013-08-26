@@ -6,7 +6,7 @@ function getElmt(id){ return document.getElementById(id); }
 function FCG(){
 	this.cdom = getElmt('myfcg');
 	this.ctx = this.cdom.getContext('2d');
-	this.currentLevel = 4;
+	this.currentLevel = 0;
 }
 FCG.prototype.line = function(x1,y1, x2,y2){
 	this.ctx.moveTo(x1,y1);
@@ -140,13 +140,14 @@ function startGame(){
 	var green = getElmt('green');
 	var blue = getElmt('blue');
 	var yellow = getElmt('yellow');
+	var help = getElmt('help');
 	btn.addEventListener("click", function(){
 		valid = fcg.validate();
 		console.log('valid', valid);
 		if (valid){
 			fcg.next();
 		} else {
-			alert("Invalid fill.\nAll parts must be filled with no default color.\nNeighbouring parts must be filled with different color.");
+			alert("Invalid fill.\nAll parts must be filled with no default color.\nDirectly connected parts must be filled with different color.");
 		}
 	});
 	red.addEventListener('click', function(){
@@ -166,6 +167,14 @@ function startGame(){
 		if (input == true){
 			fcg.start();
 		}
+	});
+	help.addEventListener('click', function(){
+		var helpText = "Rule of play\
+		\n\nFill all square (at the left side) with any color from the list (at the right side)\
+		\nYou must fill all square and make sure no directly connected parts have same color\
+		\n\nTo fill a square with specific color, choose the color by clicking color list (at the right side)\
+		\nand then click specific part do you want to color";
+		alert(helpText);
 	});
 	fcg.cdom.addEventListener("mousedown", function (event){
 		var clickPos = fcg.calculatePosition(event);
