@@ -6,7 +6,7 @@ function getElmt(id){ return document.getElementById(id); }
 function FCG(){
 	this.cdom = getElmt('myfcg');
 	this.ctx = this.cdom.getContext('2d');
-	this.currentLevel = 2;
+	this.currentLevel = 4;
 }
 FCG.prototype.line = function(x1,y1, x2,y2){
 	this.ctx.moveTo(x1,y1);
@@ -35,7 +35,7 @@ FCG.prototype.fillBackground = function(){
 	this.ctx.fillStyle = DEFAULT_COLOR[0];
 	this.ctx.fillRect(0, 0, WIDTH, HEIGHT);
 },
-FCG.prototype.setLevelText = function (){ var lvl = getElmt('level'); lvl.innerText = this.currentLevel+1; }
+FCG.prototype.setLevelText = function (){ var lvl = getElmt('level'); lvl.innerHTML = this.currentLevel+1; }
 FCG.prototype.initPartsColor = function(){
 	var parts = LEVEL[this.currentLevel].parts
 	this.partsColor = new Array();
@@ -98,8 +98,9 @@ FCG.prototype.validate = function(){
 	return valid;
 }
 FCG.prototype.calculatePosition = function(event){
-	var x = event.x;
-	var y = event.y;
+	console.log('event', event);
+	var x = event.clientX;
+	var y = event.clientY;
 	console.log('original click', x + ',' + y);
 	console.log('offsetLeft', this.cdom.offsetLeft);
 	console.log('offsetTop', this.cdom.offsetTop);
